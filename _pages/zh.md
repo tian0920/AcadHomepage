@@ -8,7 +8,7 @@ author_profile: true
 
 <span class='anchor' id='about-me'></span>
 
-<p style="text-align:right"><a href="/">English Version</a></p>
+<p style="text-align:right"><a href="{{ '/' | relative_url }}">English Version</a></p>
 
 现为西南财经大学**大数据管理**方向管理学博士研究生。2025 至 2026 年获国家公派赴新加坡南洋理工大学访学。
 
