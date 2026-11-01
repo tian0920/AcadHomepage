@@ -17,7 +17,7 @@ redirect_from:
 
 <span class='anchor' id='about-me'></span>
 
-<p style="text-align:right"><a href="/zh/">中文版</a></p>
+<p style="text-align:right"><a href="{{ '/zh/' | relative_url }}">中文版</a></p>
 
 I am a Ph.D. candidate in Management with a focus on **Big Data Management** at the Southwestern University of Finance and Economics. From 2025 to 2026, I am a government-sponsored visiting Ph.D. student at Nanyang Technological University, Singapore.
 

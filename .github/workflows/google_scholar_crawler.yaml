@@ -1,23 +1,33 @@
 name: Get Citation Data
 
-on: 
- page_build: 
- schedule:
-  - cron:  '0 8 * * *'
+on:
+  page_build:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - "google_scholar_crawler/**"
+      - ".github/workflows/google_scholar_crawler.yaml"
+  schedule:
+    - cron: '0 8 * * *'
 
 jobs:
   build:
     runs-on: ubuntu-latest
+    timeout-minutes: 10
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v4
+    - uses: actions/setup-python@v5
+      with:
+        python-version: "3.11"
     - name: Install Reqs
       run: |
-        sudo apt-get install python3-setuptools
+        python -m pip install -r google_scholar_crawler/requirements.txt
+        python -c "from scholarly import scholarly; from bibtexparser.bibdatabase import BibDatabase"
     - name: Run
       run: |
         cd ./google_scholar_crawler
-        pip3 install -r requirements.txt
-        python3 main.py
+        python main.py
         cd ./results
         git init
         git config --local user.name "${GITHUB_ACTOR}"
@@ -26,4 +36,4 @@ jobs:
         git commit -m "Updated Citation Data"
         git push "${remote_repo}" HEAD:google-scholar-stats --force
       env: 
-        GOOGLE_SCHOLAR_ID: ${{ secrets.GOOGLE_SCHOLAR_ID }}
+        GOOGLE_SCHOLAR_ID: ${{ secrets.GOOGLE_SCHOLAR_ID || 'pJW7tXcAAAAJ' }}
